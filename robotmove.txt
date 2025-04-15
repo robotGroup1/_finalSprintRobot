@@ -1,0 +1,45 @@
+def start():
+    robot_ctrl.set_mode(rm_define.robot_mode_chassis_follow)
+    chassis_ctrl.set_follow_gimbal_offset(0)
+    chassis_ctrl.set_rotate_speed(30)
+    chassis_ctrl.set_wheel_speed(100,100,100,100)
+    # 100, front left, 100, front right, 100, back left, 100 back right
+    chassis_ctrl.move_with_time(4)
+    chassis_ctrl.rotate_with_degree(rm_define.anticlockwise,20)
+    # This is a pause for until we get in and can test for moving along the tape, position A
+    vision_ctrl.detect_marker_and_aim(rm_define.marker_letter_F)
+    vision_ctrl.detect_marker_and_aim(rm_define.marker_letter_D)
+    vision_ctrl.detect_marker_and_aim(rm_define.marker_letter_P)
+    # This code may need to be removed, unsure yet
+    if vision_recognized_marker_letter_F(msg):
+        "There is a fire."
+        gun_ctrl.fire_once
+    elif vision_recognized_marker_letter_D(msg):
+        "This area is dangerous."
+        continue
+    elif vision_recognized_marker_letter_P(msg)
+        "There is a person."
+        # return to A, need to do measurements to get directly back
+    # Going from D to F from here
+    chassis_ctrl.move_with_time(10)
+    gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise,90)
+    if vision_recognized_marker_number_1(msg):
+        "This is the number 1."
+        chassis_ctrl.move_and_rotate(90,rm_define.clockwise)
+        gimbal_ctrl.rotate(rm_define.gimbal_up)
+    elif vision_recognized_marker_number_2(msg):
+        "This is the number 2."
+        led_ctrl.set_flash(rm_define.armor_all,5)
+    elif vision_recognized_marker_number_3(msg):
+        "This is the number 3."
+        chassis_ctrl.move_and_rotate(40,rm_define.anticlockwise)
+        gimbal_ctrl.rotate(rm_define.gimbal_down)
+        led_ctrl.set_flash(rm_define.armor_bottom_left,2)
+    # Find time until robot reaches position D, need to adjust it to make it dance here
+    chassis_ctrl.move_with_time(20) # Temporary time
+    chassis_ctrl.move_and_rotate(40,rm_define.anticlockwise)
+    gimbal_ctrl.rotate(rm_define.gimbal_right)
+    gimbal_ctrl.rotate(rm_define.gimbal_left)
+    led_ctrl.set_top_led(rm_define.armor_top_all,69,215,255,rm_define.effect_breath)
+    # Time below to get back to position A
+    chassis_ctrl.move_with_time(40)
